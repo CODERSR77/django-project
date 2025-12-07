@@ -46,9 +46,15 @@
 <div class="container-fluid justify-content-center d-flex p-3 text-white flex-column align-items-center">
   {% for task in tasks %}
     {% if task.Is_Done %}
-      <div><label for="{{ task.id }}">{{ task.Title }} </label> <input type="checkbox" id="{{ task.id }}" checked></div><a href="{% url 'TodoAppRemoveTask' task.id %}">Remove</a>
+    <form action="{% url 'TodoAppUpdateTaskStatus' task.id%}" method="post">
+      {% csrf_token %}
+      <div><label for="{{ task.id }}" class="text-decoration-line-through">{{ task.Title }}</label><input type="checkbox" style="display: none;" onclick="this.form.submit()" id="{{ task.id }}" checked> <a href="{% url 'TodoAppRemoveTask' task.id %}">Remove</a></div>
+    </form>
     {% else %}
-      <div><label for="{{ task.id }}">{{ task.Title }} </label> <input type="checkbox" id="{{ task.id }}"></div><a href="{% url 'TodoAppRemoveTask' task.id %}">Remove</a>
+    <form action="{% url 'TodoAppUpdateTaskStatus' task.id%}" method="post">
+      {% csrf_token %} 
+      <div><label for="{{ task.id }}">{{ task.Title }} </label> <input type="checkbox" style="display: none;" onclick="this.form.submit()" id="{{ task.id }}"> <a href="{% url 'TodoAppRemoveTask' task.id %}">Remove</a></div>
+    </form>
     {% endif %}
 
   {% endfor %}
@@ -78,9 +84,8 @@
 </div>
 <div class="container-fluid d-flex p-3 fixed-bottom justify-content-center">
   <button type="button" class="btn btn-outline-success m-2" data-bs-toggle="modal" data-bs-target="#add_task">Add Task</button>
-  <button type="button" class="btn btn-outline-danger m-2">Remove Task</button>
-
 </div>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.js" integrity="sha384-ezjq8118wdwdRMj+nX4bevEi+cDLTbhLAeFF688VK8tPDGeLUe0WoY2MZtSla72F" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>
