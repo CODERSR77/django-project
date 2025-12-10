@@ -48,12 +48,12 @@
     {% if task.Is_Done %}
     <form action="{% url 'TodoAppUpdateTaskStatus' task.id%}" method="post">
       {% csrf_token %}
-      <div><label for="{{ task.id }}" class="text-decoration-line-through">{{ task.Title }}</label><input type="checkbox" style="display: none;" onclick="this.form.submit()" id="{{ task.id }}" checked> <a href="{% url 'TodoAppRemoveTask' task.id %}">Remove</a></div>
+      <div><label for="{{ task.id }}" class="text-decoration-line-through">{{ task.Title }}</label><input type="checkbox" style="display: none;" onclick="this.form.submit()" id="{{ task.id }}" checked> <a href="{% url 'TodoAppRemoveTask' task.id %}" class="text-danger">x</a></div>
     </form>
     {% else %}
     <form action="{% url 'TodoAppUpdateTaskStatus' task.id%}" method="post">
       {% csrf_token %} 
-      <div><label for="{{ task.id }}">{{ task.Title }} </label> <input type="checkbox" style="display: none;" onclick="this.form.submit()" id="{{ task.id }}"> <a href="{% url 'TodoAppRemoveTask' task.id %}">Remove</a></div>
+      <div><label for="{{ task.id }}">{{ task.Title }} </label> <input type="checkbox" style="display: none;" onclick="this.form.submit()" id="{{ task.id }}"> <a href="{% url 'TodoAppRemoveTask' task.id %}" class="text-danger">x</a></div>
     </form>
     {% endif %}
 
